@@ -1,0 +1,8 @@
+FROM alpine:latest
+RUN apk add --no-cache curl unzip
+RUN curl -L -H "Cache-Control: no-cache" -o xray.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
+    unzip xray.zip && \
+    chmod +x xray && \
+    rm xray.zip
+COPY config.json /config.json
+CMD ["/xray", "run", "-c", "/config.json"]
